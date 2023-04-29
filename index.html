@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/crossword.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.5/p5.min.js"></script>
 
@@ -26,9 +27,12 @@
 
     </div>
 
+    <div class="crossword" id="crossword"></div>
+
     <script>
 
-        Particle()
+        setTimeout(() => { Particle() }, 1000)
+        
         Generate()
 
     </script>

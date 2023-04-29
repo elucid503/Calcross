@@ -1,4 +1,5 @@
 function Particle(pos) {
+	
 	this.pos = pos || createVector(random(width), random(height));
 	this.xV = random(-6,6);
 	this.yV = random(-6,6);
@@ -20,6 +21,7 @@ var shade;
 var shadeMulti = 1;
 
 function setup() {
+	
 	createCanvas(windowWidth, windowHeight);
 
 	shade = Math.floor(random(0,100));
