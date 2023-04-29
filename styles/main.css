@@ -1,0 +1,33 @@
+/* Variables */
+
+:root { 
+
+    --background: #161616;
+    --text: #deeaf8;
+}
+
+/* Global */
+
+* { 
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  
+    font-family: "forma-djr-micro", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    
+}
+
+/* For the document body */
+
+body { 
+
+    background-color: var(--background);
+    color: var(--text)
+
+}
+
+/* For Background */
+

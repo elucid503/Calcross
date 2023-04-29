@@ -1,0 +1,39 @@
+/* For Document Header */
+
+.header {
+
+  display: flex;
+  margin-top: 4rem;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.header .title { 
+
+    font-size: 2rem;
+
+}
+
+.header .description { 
+
+    font-size: 1.5rem;
+    padding-left: 15px;
+    
+}
+
+.header .line { 
+
+    margin-left: 15px;
+
+}
+
+.header .line::before {
+
+    content: '';
+    border-left: 2.5px solid var(--text);
+    padding-top: 11px;
+    padding-bottom: 7px;
+    border-radius: 5px;
+
+}
