@@ -30,19 +30,7 @@ const WordsAndDefinitions = [
     ["Midline", "A horizontal line that represents the average value of a periodic function over one period."],
     ["Discontinuity", "A point at which a function is not continuous, meaning there is a break, gap, or hole in its graph."],
     ["Optimization", "The process of finding the maximum or minimum value of a function, often used to solve real-world problems."],
-    ["Riemann", "A method for approximating the definite integral of a function by summing the areas of rectangles or trapezoids over an interval."],
-    ["Absolute Value", "The non-negative value of a number, representing its distance from zero on the number line."],
-    ["Implicit Differentiation", "A technique used to differentiate equations that are not explicitly in the form of a function."],
-    ["Related Rates", "A method used to find the rate of change of one variable with respect to another variable, often involving the chain rule."],
-    ["Velocity", "The rate of change of position with respect to time, which is the first derivative of a position function."],
-    ["Acceleration", "The rate of change of velocity with respect to time, which is the second derivative of a position function."],
-    ["Critical Points", "Points on the graph of a function where the derivative is either zero or undefined, often associated with local extrema."],
-    ["Mean Value Theorem", "A theorem stating that if a function is continuous on a closed interval and differentiable on the open interval, there exists a point in the open interval where the derivative is equal to the average rate of change over the closed interval."],
-    ["Disk Method", "A method for finding the volume of a solid of revolution by integrating the sum of the volumes of infinitesimal disks over an interval."],
-    ["Washer Method", "A method for finding the volume of a solid of revolution by integrating the sum of the volumes of infinitesimal washers over an interval."],
-    ["Shell Method", "A method for finding the volume of a solid of revolution by integrating the sum of the volumes of infinitesimal cylindrical shells over an interval."],
-    ["First Derivative Test", "A test used to determine the local extrema of a function by analyzing the sign of the first derivative in a neighborhood around a critical point."],
-    ["Second Derivative Test", "A test used to determine the concavity and local extrema of a function by analyzing the sign of the second derivative at a critical point."],
+    ["Riemann Sum", "A method for approximating the definite integral of a function by summing the areas of rectangles or trapezoids over an interval."],
     
 ]
 
