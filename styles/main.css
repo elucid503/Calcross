@@ -4,6 +4,9 @@
 
     --background: #161616;
     --text: #deeaf8;
+    --element: rgba(47, 47, 47, 0.45);
+    --border: 1px solid rgba(195, 229, 247, 0.25);
+
 }
 
 /* Global */
@@ -33,3 +36,16 @@ body {
 
 /* For Background */
 
+canvas {
+
+    display: block;
+    cursor: pointer;
+    opacity: 0.2;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    top: 0;
+
+}
+  
