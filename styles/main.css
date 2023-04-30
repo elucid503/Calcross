@@ -5,6 +5,7 @@
     --background: #161616;
     --text: #deeaf8;
     --element: rgba(24, 24, 24, 0.45);
+    --clue: rgba(39, 39, 39, 0.45);
     --overlayed: rgba(48, 48, 48, 0.45);
     --border: 1px solid rgba(195, 229, 247, 0.25);
     --border-alt: 1px solid rgba(195, 229, 247, 0.45);
@@ -39,26 +40,141 @@ body {
 
 /* For Background */
 
-canvas {
+.background { 
 
-    display: block;
-    cursor: pointer;
-    opacity: 0.2;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    top: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
 
 }
+
+.background .circles {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden!important;
+
+}
+
+.background .circles li {
   
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  
+  background: rgba(115, 115, 115, 0.2);
+  animation: animate 30s linear infinite;
+  bottom: -150px;
+
+  border: 1px solid rgba(255, 255, 255, 0.125);
+
+}
+
+.background .circles li:nth-child(1){
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+
+.background .circles li:nth-child(2){
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.background .circles li:nth-child(3){
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.background .circles li:nth-child(4){
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.background .circles li:nth-child(5){
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.background .circles li:nth-child(6){
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.background .circles li:nth-child(7){
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.background .circles li:nth-child(8){
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.background .circles li:nth-child(9){
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.background .circles li:nth-child(10){
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+@keyframes animate {
+
+  0%{
+      transform: translateY(0) rotate(0deg);
+      opacity: 0.5;
+      border-radius: 0;
+  }
+
+  100%{
+      transform: translateY(-1000px) rotate(600deg);
+      opacity: 0;
+      border-radius: 50%;
+  }
+
+}
+
 /* For the buttons */
 
 .button {
     --background: var(--buttons);
     --color: var(--text);
     --shadow: rgba(0, 9, 61, 0.24);
-    --cannon-dark: #A6ACCD;
+    --cannon-dark: #a7b4ff;
     --cannon-light: #F6F8FF;
     --cannon-shadow: rgba(13, 15, 24, 0.9);
     --confetti-1: #892AB8;
@@ -66,26 +182,19 @@ canvas {
     --confetti-3: #FFFF04;
     --confetti-4: #4AF2FD;
     --z-before: -6;
-    display: block;
-    outline: none;
     cursor: pointer;
-    position: relative;
     border: var(--border);
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, .25);
     backdrop-filter: blur(10px);
     border-radius: 10px;  
     background: none;
     padding: 9px 22px 9px 16px;
     line-height: 26px;
-    font-family: inherit;
-    font-weight: 600;
     font-size: 14px;
     color: var(--color);
     -webkit-appearance: none;
     appearance: none;
     -webkit-tap-highlight-color: transparent;
     transition: transform var(--transform-duration, 0.4s);
-    will-change: transform;
     transform-style: preserve-3d;
     transform: perspective(440px) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)) translateZ(0);
 
@@ -94,13 +203,19 @@ canvas {
   }
 
   .button:hover {
+
     --transform-duration: .16s;
+
   }
   .button.success {
+
     --confetti-scale: 0;
     --stroke-dashoffset: 15;
+
   }
+
   .button:before {
+
     content: "";
     position: absolute;
     left: 0;
@@ -111,27 +226,35 @@ canvas {
     transform: translateZ(calc(var(--z-before) * 1px));
     background: var(--background);
     box-shadow: 0 4px 8px var(--shadow);
+
   }
   .button .icon,
   .button span {
+
     display: inline-block;
     vertical-align: top;
     position: relative;
     z-index: 1;
+
   }
   .button .icon {
+
     --z: 2px;
     width: 24px;
     height: 14px;
     margin: 8px 16px 0 0;
     transform: translate(calc(var(--icon-x, 0) * 1px), calc(var(--icon-y, 0) * 1px)) translateZ(2px);
+
   }
   .button .icon .confetti {
+
     position: absolute;
     left: 17px;
     bottom: 9px;
+
   }
   .button .icon .confetti svg {
+
     width: 18px;
     height: 16px;
     display: block;
@@ -139,26 +262,36 @@ canvas {
     fill: none;
     stroke-linejoin: round;
     stroke-linecap: round;
+
   }
   .button .icon .confetti svg * {
+
     transition: stroke-dashoffset 0.2s;
     stroke-dasharray: 15 20;
     stroke-dashoffset: var(--stroke-dashoffset, 0);
     stroke: var(--stroke-all, var(--stroke, var(--confetti-2)));
+
   }
   .button .icon .confetti svg *:nth-child(2) {
+
     --stroke: var(--confetti-3);
+
   }
   .button .icon .confetti svg *:nth-child(3) {
+
     --stroke: var(--confetti-1);
   }
+
   .button .icon .confetti .emitter {
+
     position: absolute;
     left: 4px;
     bottom: 4px;
     pointer-events: none;
   }
+
   .button .icon .confetti .emitter div {
+
     width: 4px;
     height: 4px;
     margin: -2px 0 0 -2px;
@@ -168,8 +301,11 @@ canvas {
     top: 0;
     transform-style: preserve-3d;
     background: var(--confetti-all, var(--b, none));
+
   }
+
   .button .icon .confetti i {
+
     width: 4px;
     height: 4px;
     display: block;
@@ -180,53 +316,71 @@ canvas {
     top: var(--top, 3px);
     border-radius: var(--border-radius, 1px);
     background: var(--confetti-background, var(--confetti-3));
+
   }
   .button .icon .confetti i:nth-child(2) {
+
     --left: 9px;
     --top: -1px;
     --border-radius: 2px;
     --confetti-background: var(--confetti-4);
+
   }
   .button .icon .confetti i:nth-child(3) {
+
     --left: 5px;
     --top: 3px;
     --confetti-background: var(--confetti-1);
+
   }
   .button .icon .confetti i:nth-child(4) {
+
     --left: 10px;
     --top: 14px;
     --confetti-background: var(--confetti-2);
+
   }
   .button .icon .confetti i:nth-child(5) {
+
     --left: 9px;
     --top: 7px;
     --confetti-background: var(--confetti-4);
+
   }
   .button .icon .confetti i:nth-child(6) {
+
     --left: 6px;
     --top: 8px;
     --border-radius: 2px;
     --confetti-background: var(--confetti-2);
+
   }
   .button .icon .cannon {
+
     position: relative;
     width: 24px;
     height: 14px;
     transform: translate(0, 3px) rotate(-45deg);
     filter: drop-shadow(-2px 2px 2px var(--cannon-shadow));
+
   }
   .button .icon .cannon:before, .button .icon .cannon:after {
+    
     content: "";
     display: block;
     height: 14px;
+
   }
   .button .icon .cannon:before {
+
     background: linear-gradient(var(--cannon-dark), var(--cannon-light) 50%, var(--cannon-dark));
     width: 100%;
     -webkit-clip-path: polygon(25px -1px, 0 52%, 25px 15px);
     clip-path: polygon(25px -1px, 0 52%, 25px 15px);
+    
   }
   .button .icon .cannon:after {
+
     width: 6px;
     position: absolute;
     right: -3px;
@@ -234,28 +388,7 @@ canvas {
     border-radius: 50%;
     box-shadow: inset 0 0 0 0.5px var(--cannon-light);
     background: linear-gradient(90deg, var(--cannon-dark), var(--cannon-light));
-  }
-  .button.white {
-    --background: #fff;
-    --color: #1E2235;
-    --border: #E1E6F9;
-    --shadow: none;
-    --cannon-dark: #103FC5;
-    --cannon-light: #275EFE;
-    --cannon-shadow: rgba(0, 9, 61, 0.2);
-  }
-  .button.white:before {
-    box-shadow: inset 0 0 0 1px var(--border);
-  }
-  .button.grey {
-    --background: #404660;
-    --cannon-shadow: rgba(13, 15, 24, 0.2);
-    --cannon-dark: #D1D6EE;
-    --cannon-light: #FFFFFF;
-  }
-  
-  html {
-    -webkit-font-smoothing: antialiased;
+
   }
   
   .buttons { 
@@ -267,19 +400,18 @@ canvas {
   }
 
   @keyframes magic {
+
     from {
       background-position: 0 0;
     }
     to {
       background-position: 100% 100%;
     }
+
   }
-  * {
-    margin: 0;
-    padding: 0;
-  }
-    
+
   .text {
+
     font-weight: bold;
     color: transparent;
     background-image: linear-gradient(to right, #fd1d1d, #fcb045, #fcef45, #81fc45, #45d8fc, #5245fc, #af45fc);
@@ -289,6 +421,7 @@ canvas {
     -moz-background-clip: text;
     -o-background-clip: text;
     background-clip: text;
+    
   }
 
   .subtitle { 

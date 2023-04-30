@@ -52,6 +52,10 @@ function sortByNumberProperty(arr, property) {
 function Generate() { 
 
     let board, wordArr, wordBank, wordsActive, mode;
+    let xMatches = 0; let yMatches = 0;
+    
+    let xWords = { }
+    let yWords = { }
 
     const Bounds = {  
       
@@ -92,7 +96,7 @@ function Generate() {
 
     }
     
-    function Create(){
+    function Create() {
       
       if (mode === 0) {
         
@@ -151,14 +155,10 @@ function Generate() {
       
         wordArr = [];  
         let index = 0
-        
-        // Pull 6 random elements from the WordsAndDefinitions array
-      
+              
         let elements = getRandomElements(WordsAndDefinitions, 7);
-        
-        console.log(elements.map(([word, definition]) => word))
-    
-        for (const [word, definition] of elements) {
+            
+        for (const [word, _definition] of elements) {
             if (index < 7) wordArr.push(word);
             index += 1;
         }
@@ -169,6 +169,12 @@ function Generate() {
   function Cleanlets() {
       
     Bounds.Clean();
+
+    xMatches = 0;
+    yMatches = 0;
+
+    xWords = {}
+    yWords = {}
     
     wordBank = [];
     
@@ -284,200 +290,342 @@ function Generate() {
                   
                 curWord.effectiveMatches++;
                 
-                  let curCross = {x:testWord.x,y:testWord.y,dir:0};              
-                  if(testWord.dir === 0){                
-                    curCross.dir = 1;
-                    curCross.x += l;
-                    curCross.y -= j;
-                  } 
-                  else{
-                    curCross.dir = 0;
-                    curCross.y += l;
-                    curCross.x -= j;
-                  }
+                let curCross = { x: testWord.x, y: testWord.y, dir: 0 };       
+                
+                if (testWord.dir === 0) {                
+                    
+                  curCross.dir = 1;
                   
-                  let isMatch = true;
+                  curCross.x += l;
                   
-                  for(let m = -1, lenM = curWord.char.length + 1; m < lenM; m++){
-                    let crossVal = [];
-                    if (m !== j){
-                      if (curCross.dir === 0){
-                        let xIndex = curCross.x + m;
+                  curCross.y -= j;
+                  
+                } 
+                
+                else {
+                  
+                  curCross.dir = 0;
+                  
+                  curCross.y += l;
+                  
+                  curCross.x -= j;
+                  
+                }
+                
+                let isMatch = true;
+                
+                for (let m = -1, lenM = curWord.char.length + 1; m < lenM; m++){
+                    
+                  let crossVal = [];
+                  
+                  if (m !== j) {
+                      
+                    if (curCross.dir === 0) {
                         
-                        if (xIndex < 0 || xIndex > board.length){
-                          isMatch = false;
-                          break;
-                        }
-
-                        if (board[xIndex]) {
-                                                  
-                          crossVal.push(board[xIndex][curCross.y]);
-                          crossVal.push(board[xIndex][curCross.y + 1]);
-                          crossVal.push(board[xIndex][curCross.y - 1]);
+                      let xIndex = curCross.x + m;
+                      
+                      if (xIndex < 0 || xIndex > board.length) {
                           
-                        }
-
-                        else { 
-
-                          console.warn("Out of bounds")
-
-                        }
+                        isMatch = false;
+                        
+                        break;
+                        
+                      }
+                    
+                      if (board[xIndex]) {
+                                                  
+                        crossVal.push(board[xIndex][curCross.y]);
+                        
+                        crossVal.push(board[xIndex][curCross.y + 1]);
+                        
+                        crossVal.push(board[xIndex][curCross.y - 1]);
+                        
+                          
+                      }
+                      
+                      else { 
 
                       }
-                      else{
+                    
+                    }
+                  
+                    else {
+                        
                         let yIndex = curCross.y + m;
                         
-                        if (yIndex < 0 || yIndex > board[curCross.x].length){
+                      if (yIndex < 0 || yIndex > board[curCross.x].length) {
+                          
+                        isMatch = false;
+                        
+                        break;
+                        
+                      }
+                    
+                      crossVal.push(board[curCross.x][yIndex]);
+                      
+                      crossVal.push(board[curCross.x + 1][yIndex]);
+                      
+                      crossVal.push(board[curCross.x - 1][yIndex]);
+                      
+                    }
+    
+                    if (m > -1 && m < lenM - 1) {
+                        
+                      if (crossVal[0] !== curWord.char[m]) {
+                          
+                        if (crossVal[0] !== null) {
+                            
+                          isMatch = false;
+                            
+                          break;
+
+                        }
+
+                        else if (crossVal[1] !== null) {
+                          
                           isMatch = false;
                           break;
+                          
                         }
-                        
-                        crossVal.push(board[curCross.x][yIndex]);
-                        crossVal.push(board[curCross.x + 1][yIndex]);
-                        crossVal.push(board[curCross.x - 1][yIndex]);
-                      }
-    
-                      if(m > -1 && m < lenM-1){
-                        if (crossVal[0] !== curWord.char[m]){
-                          if (crossVal[0] !== null){
+                          
+                          else if (crossVal[2] !== null) {
+                            
                             isMatch = false;                  
                             break;
-                          }
-                          else if (crossVal[1] !== null){
-                            isMatch = false;
-                            break;
-                          }
-                          else if (crossVal[2] !== null){
-                            isMatch = false;                  
-                            break;
-                          }
                         }
+                       
                       }
-                      else if (crossVal[0] !== null){
-                        isMatch = false;                  
-                        break;
-                      }
+
                     }
+
+                    else if (crossVal[0] !== null) {
+                      
+                      isMatch = false;    
+                      
+                      break;
+                      
+                    }
+                    
                   }
                   
-                  if (isMatch === true){                
+                }           
+                  
+                if (isMatch === true) {      
+                    
                     curWord.successfulMatches.push(curCross);
-                  }
                 }
+                
               }
+              
             }
+            
           }
           
-          curMatchDiff = curWord.totalMatches - curWord.effectiveMatches;
+        }
+        
+        curMatchDiff = curWord.totalMatches - curWord.effectiveMatches;
           
-          if (curMatchDiff<minMatchDiff && curWord.successfulMatches.length>0){
-            curMatchDiff = minMatchDiff;
-            curIndex = i;
-          }
-          else if (curMatchDiff <= 0){
-            return false;
-          }
-        }
-      }
-      
-      if (curIndex === -1){
-        return false;
-      }
-        
-      let spliced = wordBank.splice(curIndex, 1);
-      wordsActive.push(spliced[0]);
-      
-      let pushIndex = wordsActive.length - 1,
-          rand = Math.random(),
-          matchArr = wordsActive[pushIndex].successfulMatches,
-          matchIndex = Math.floor(rand * matchArr.length),  
-          matchData = matchArr[matchIndex];
-      
-      wordsActive[pushIndex].x = matchData.x;
-      wordsActive[pushIndex].y = matchData.y;
-      wordsActive[pushIndex].dir = matchData.dir;
-      
-      for(i = 0, len = wordsActive[pushIndex].char.length; i < len; i++){
-        let xIndex = matchData.x,
-            yIndex = matchData.y;
-        
-        if (matchData.dir === 0){
-          xIndex += i;    
-          board[xIndex][yIndex] = wordsActive[pushIndex].char[i];
-        }
-        else{
-          yIndex += i;  
-          board[xIndex][yIndex] = wordsActive[pushIndex].char[i];
+        if (curMatchDiff < minMatchDiff && curWord.successfulMatches.length > 0) {
+            
+          curMatchDiff = minMatchDiff;
+          
+          curIndex = i;
+          
         }
         
-        Bounds.Update(xIndex,yIndex);
-      }
+        else if (curMatchDiff <= 0) {
+          
+          return false;
+          
+        }
         
-      return true;
+      }
+      
     }
     
+    if (curIndex === -1) {
+        
+      return false;
+      
+    }
+        
+    let spliced = wordBank.splice(curIndex, 1);
     
-  function BoardToHtml(blank) {
+    wordsActive.push(spliced[0]);
+    
+    let pushIndex = wordsActive.length - 1,
+        
+    rand = Math.random(),
+        
+    matchArr = wordsActive[pushIndex].successfulMatches,
+        
+    matchIndex = Math.floor(rand * matchArr.length), 
+        
+    matchData = matchArr[matchIndex];
+      
+    wordsActive[pushIndex].x = matchData.x;
+    
+    wordsActive[pushIndex].y = matchData.y;
+    
+    wordsActive[pushIndex].dir = matchData.dir;
+    
+    for (i = 0, len = wordsActive[pushIndex].char.length; i < len; i++){
+        
+      let xIndex = matchData.x,
+          
+      yIndex = matchData.y;
+      
+      if (matchData.dir === 0) {
+          
+        xIndex += i;
+
+        if (i === 0) {
+          xMatches += 1
+          board[xIndex - 1][yIndex] = `~${xMatches}`;
+
+          xWords[wordsActive[pushIndex].string] = xMatches.toString()
+
+        }
+        
+        board[xIndex][yIndex] = wordsActive[pushIndex].char[i];
+        
+      }
+      
+      else {
+        
+        yIndex += i;
+
+        if (i === 0) {
+          yMatches += 1
+          board[xIndex][yIndex - 1] = `~${yMatches}`;
+
+          yWords[wordsActive[pushIndex].string] = yMatches.toString()
+          
+        }
+        
+        board[xIndex][yIndex] = wordsActive[pushIndex].char[i];
+        
+      }
+        
+      Bounds.Update(xIndex, yIndex);
+      
+    }
+        
+    return true;
+    
+  }
+
+    
+  function BoardToHtml() {
       
     let str = "";
     
-      for (var i = Bounds.top - 1; i<Bounds.bottom+2; i++){
-        str += "<div class='row'>";
-        for (let j = Bounds.left - 1; j < Bounds.right + 2; j++){
-          str += BoardCharToElement(board[j][i]);
-        }
-        str += "</div>";
-      }
-      return str;
-    }
-    
-    function BoardCharToElement(c){
-      let arr=(c)?['square','letter']:['square'];
-      return EleStr('div',[{a:'class',v:arr}],c);
-    }
-    
-    function WordObj(stringValue){
-      this.string = stringValue;
-      this.char = stringValue.split("");
-      this.totalMatches = 0;
-      this.effectiveMatches = 0;
-      this.successfulMatches = [];  
-    }
-    
-    function RegisterEvents(){
-      document.getElementById("crossword").onfocus = function (){ 
-        return false; }
-    }
-    RegisterEvents();
-    
-
-    function EleStr(e,c,h){
-      h = (h)?h:"";
-      for(var i=0,s="<"+e+" "; i<c.length; i++){
-        s+=c[i].a+ "='"+ArrayToString(c[i].v," ")+"' ";    
-      }
-      return (s+">"+h+"</"+e+">");
-    }
-    
-    function ArrayToString(a,s){
-      if(a===null||a.length<1)return "";
-      if(s===null)s=",";
-      for(var r=a[0],i=1;i<a.length;i++){r+=s+a[i];}
-      return r;
-    }
-    
-    function AddClass(ele,classStr){
-      ele.className = ele.className.replaceAll(' '+classStr,'')+' '+classStr;
-    }
-    
-    function RemoveClass(ele,classStr){
-      ele.className = ele.className.replaceAll(' '+classStr,'');
-    }
+    for (var i = Bounds.top - 1; i < Bounds.bottom + 2; i++){
+        
+      str += "<div class='row'>";
       
-    String.prototype.replaceAll = function (replaceThis, withThis) {
-       let re = new RegExp(replaceThis,"g"); 
-       return this.replace(re, withThis);
-    };
+      for (let j = Bounds.left - 1; j < Bounds.right + 2; j++){
+          
+        str += BoardCharToElement(board[j][i]);
+        
+      }
+      
+      str += "</div>";
+      
+    }
+
+    return str;
+    
+  }
+  
+  function BoardCharToElement(c) {
+      
+    let arr = (c) ? ['square', 'letter'] : ['square'];
+    
+    if (c && c[0] === "~") {
+
+      arr = ['square', 'indicator']
+      c = c.slice(1)
+
+    }
+
+    return EleStr('div', [{ a: 'class', v: arr }], c);
+    
+  }
+    
+  function WordObj(stringValue) {
+      
+    this.string = stringValue;
+    
+    this.char = stringValue.split("");
+    
+    this.totalMatches = 0;
+    
+    this.effectiveMatches = 0;
+    
+    this.successfulMatches = [];  
+    
+  }
+  
+  function RegisterEvents() {
+      
+    document.getElementById("crossword").onfocus = function () { 
+        
+      return false;
+    }
+    
+  }
+  
+  RegisterEvents();
+  
+  function EleStr(e, c, h) {
+      
+    h = (h) ? h : "";
+    
+    for (var i = 0, s = "<" + e + " "; i < c.length; i++){
+        
+      s += c[i].a + "='" + ArrayToString(c[i].v, " ") + "' ";    
+      
+    }
+    
+    return (s + ">" + h + "</" + e + ">");
+    
+  }
+    
+  function ArrayToString(a, s) {
+      
+    if (a === null || a.length < 1) return "";
+    
+    if (s === null) s = ",";
+    
+    for (var r = a[0], i = 1; i < a.length; i++){ r += s + a[i]; }
+    
+    return r;
+    
+  }
+  
+  function AddClass(ele, classStr) {
+      
+    ele.className = ele.className.replaceAll(' ' + classStr, '') + ' ' + classStr;
+    
+  }
+  
+    
+  function RemoveClass(ele, classStr) {
+      
+    ele.className = ele.className.replaceAll(' ' + classStr, '');
+    
+  }
+  
+      
+  String.prototype.replaceAll = function (replaceThis, withThis) {
+      
+    let re = new RegExp(replaceThis, "g"); 
+    
+    return this.replace(re, withThis);
+    
+  };
+  
     
     let generateBtn = document.getElementById("generate")
     let answersBtn = document.getElementById("showKey")
@@ -488,47 +636,43 @@ function Generate() {
 
   generateBtn.addEventListener("click", function () {
 
-      generated = true 
+    generated = true
       
-      Cleanlets()
-      mode = 1
-      Create()
-      Play()
-      
+    Cleanlets()
+    mode = 1
+    Create()
+    Play()
+            
     let cluesElement = document.querySelector('.clues')
 
-    cluesElement.innerHTML = `<div class='clue-header'>Clues</div> <br>
-    <div class='clue-type'>Across<br><span class='info'>Top to Bottom</span></div>`
-    let acrossIndex = 0
-      
-    for (const word of sortByNumberProperty(wordsActive.filter((word) => word.dir === 0), 'y')) {
-
-      acrossIndex += 1
+    cluesElement.innerHTML = `<div class='clue-type'>Across</div>`
+    
+    for (const word of wordsActive.filter(w => w.dir === 0)) {
         
       let wordAndDef = WordsAndDefinitions.find(w => w[0] === word.string)
 
+      let crossNumber = xWords[word.string]
+
       let element = document.createElement('div')
       element.className = 'clue'
-      element.innerHTML = `<div class='clue'>${acrossIndex} • ${wordAndDef[1]}</div>`
+      element.innerHTML = `<div> <div class="number">${crossNumber}</div><div class='def'>${wordAndDef[1]}</div></div>`
       cluesElement.appendChild(element)
-
+      
     }
     
-    cluesElement.innerHTML += `<div class='clue-type'>Down<br><span class='info'>Left to Right</span></div>`
+    cluesElement.innerHTML += `<div class='clue-type'>Down</div>`
 
-    let downIndex = 0
-
-    for (const word of sortByNumberProperty(wordsActive.filter((word) => word.dir === 1), 'x')) {
-
-      downIndex += 1
+    for (const word of wordsActive.filter(w => w.dir === 1)) {
         
       let wordAndDef = WordsAndDefinitions.find(w => w[0] === word.string)
 
+      let crossNumber = yWords[word.string]
+
       let element = document.createElement('div')
       element.className = 'clue'
-      element.innerHTML = `<div class='clue'>${downIndex} • ${wordAndDef[1]}</div>`
+      element.innerHTML = `<div> <div class="number">${crossNumber}</div><div class='def'>${wordAndDef[1]}</div></div>`
       cluesElement.appendChild(element)
-
+      
     }
 
   })
