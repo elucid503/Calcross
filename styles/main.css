@@ -4,8 +4,10 @@
 
     --background: #161616;
     --text: #deeaf8;
-    --element: rgba(47, 47, 47, 0.45);
+    --element: rgba(24, 24, 24, 0.45);
+    --overlayed: rgba(48, 48, 48, 0.45);
     --border: 1px solid rgba(195, 229, 247, 0.25);
+    --border-alt: 1px solid rgba(195, 229, 247, 0.45);
 
 }
 
@@ -29,7 +31,6 @@ body {
 
     background-color: var(--background);
     color: var(--text);
-    overflow: hidden;
     height: 100vh;
 
 }

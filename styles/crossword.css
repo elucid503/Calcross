@@ -1,39 +1,50 @@
 .crossword {
-    display: block;  
-    background-color: rgb(32,32,32);  
+
+    background-color: var(--element);  
+    overflow: scroll;
+    height: fit-content;
+
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 90%;
+    min-height: 60%;
+
+    margin-top: 4rem;
+
+    border: var(--border);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, .25);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;  
+
+    margin-bottom: 4rem;
+
 }
 
 .square {  
 
-    margin: 0 1px 1px 0;
+    margin: 4px;
     display: inline-block;
-    font: 24px Calibri;
+    font: 2vw Calibri;
+    
     width: 1.25em;
     height: 1.25em;
-    line-height: 1.25em;
+    line-height: 1.1em;
     vertical-align: middle;
-    
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+
+    color: var(--text);
 
 }
   
-.letter{
+.letter {
 
-    background-color: rgb(255,255,255);
-     
-    -webkit-touch-callout: text;
-    -webkit-user-select: text;
-    -khtml-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
-    color: black;
-
+    backdrop-filter: blur(10px);
+    border: var(--border-alt);
+    border-radius: 5px;
+    
+    text-align: center;
+    
  }
   
 .char:focus{
@@ -46,7 +57,7 @@
   
 .char {
 
-    font-size:24px;
+    font-size:2vw;
     text-transform: uppercase;
     outline: 0;
     border: 0;
@@ -72,5 +83,12 @@
     outline: 0;
     color: black !important;
     background:none;
+
+}
+
+.row { 
+
+    display: block;
+    margin-left: 15%;
 
 }
