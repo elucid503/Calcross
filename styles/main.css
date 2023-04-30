@@ -429,3 +429,10 @@ body {
     font-size: 1.25vw;
 
   }
+
+  .empty { 
+
+    width: 100%;
+    height: 1px;
+
+  }
