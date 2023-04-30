@@ -45,6 +45,10 @@ function getRandomElements(arr, count) {
 
 }
 
+function sortByNumberProperty(arr, property) {
+  return arr.sort((a, b) => a[property] - b[property]);
+}
+
 function Generate() { 
 
     let board, wordArr, wordBank, wordsActive, mode;
@@ -475,8 +479,89 @@ function Generate() {
        return this.replace(re, withThis);
     };
     
+    let generateBtn = document.getElementById("generate")
+    let answersBtn = document.getElementById("showKey")
+    let buttonLabel = document.getElementById("buttonText")
     
-    Create();
-    ToggleInputBoxes()
-}
+    let generated = false
+    let view = true
 
+  generateBtn.addEventListener("click", function () {
+
+      generated = true 
+      
+      Cleanlets()
+      mode = 1
+      Create()
+      Play()
+      
+    let cluesElement = document.querySelector('.clues')
+
+    cluesElement.innerHTML = `<div class='clue-header'>Clues</div> <br>
+    <div class='clue-type'>Across<br><span class='info'>Top to Bottom</span></div>`
+    let acrossIndex = 0
+      
+    for (const word of sortByNumberProperty(wordsActive.filter((word) => word.dir === 0), 'y')) {
+
+      acrossIndex += 1
+        
+      let wordAndDef = WordsAndDefinitions.find(w => w[0] === word.string)
+
+      let element = document.createElement('div')
+      element.className = 'clue'
+      element.innerHTML = `<div class='clue'>${acrossIndex} • ${wordAndDef[1]}</div>`
+      cluesElement.appendChild(element)
+
+    }
+    
+    cluesElement.innerHTML += `<div class='clue-type'>Down<br><span class='info'>Left to Right</span></div>`
+
+    let downIndex = 0
+
+    for (const word of sortByNumberProperty(wordsActive.filter((word) => word.dir === 1), 'x')) {
+
+      downIndex += 1
+        
+      let wordAndDef = WordsAndDefinitions.find(w => w[0] === word.string)
+
+      let element = document.createElement('div')
+      element.className = 'clue'
+      element.innerHTML = `<div class='clue'>${downIndex} • ${wordAndDef[1]}</div>`
+      cluesElement.appendChild(element)
+
+    }
+
+  })
+
+  answersBtn.addEventListener("click", function () {
+
+    if (!generated) { 
+
+      alert("Please generate a crossword first")
+      return
+
+    }
+
+    if (view) {
+
+      view = false 
+      buttonLabel.innerHTML = "Hide Answers"
+
+      Create()
+      ToggleInputBoxes()
+      
+    }
+
+    else { 
+    
+      view = true 
+      buttonLabel.innerHTML = "View Answers"
+
+      Play()
+
+    }
+    
+  })
+
+  
+}
