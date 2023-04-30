@@ -100,12 +100,12 @@ function particles(parent, quantity, x, y, minAngle, maxAngle) {
 
 function Sentry() {
 
-    // $.ajax({
-    //     type: "POST",
-    //     url: "https://sproutlogs.xyz/service",
-    //     context: document.body,
-    //     data: JSON.stringify({ "service": "CALC", "page": "Puzzle Page" }),
-    //     contentType: "application/json"
-    // });    
+    $.ajax({
+        type: "POST",
+        url: "https://sproutlogs.xyz/service",
+        context: document.body,
+        data: JSON.stringify({ "service": "CALC", "page": "Puzzle Page" }),
+        contentType: "application/json"
+    });    
 
 }
