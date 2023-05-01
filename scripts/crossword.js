@@ -31,7 +31,20 @@ const WordsAndDefinitions = [
     ["Discontinuity", "A point at which a function is not continuous, meaning there is a break, gap, or hole in its graph."],
     ["Optimization", "The process of finding the maximum or minimum value of a function, often used to solve real-world problems."],
     ["Riemann Sum", "A method for approximating the definite integral of a function by summing the areas of rectangles or trapezoids over an interval."],
-    
+    ["Position", "The location of an object at time t."],
+    ["Acceleration", "The rate of change of velocity at time t."],
+    ["Velocity", "The rate of change of postion at time t."],
+    ["Speed", "The absolute value or magnitude of velocity at time t."],
+    ["Jerk", "The rate of change of acceleration at time t."],
+    ["NaturalLog","A logarithm with base e."],
+    ["PowerRule", "A method of finding a derivative for a function."],
+    ["Implicit","A method of differentiation on a function with a y variable."],
+    ["SlopeField", "A graphical representation of the slope of a differential equation at every coordinate point."],
+    ["Optimization", "The process of finding the maximum or minimum value of a function subject to certain constraints."],
+    ["RelatedRates", "The process of finding the rate of change of one variable with respect to another variable using the chain rule."],
+    ["DifferentialEquation", "An equation that involves an unknown function and one or more of its derivatives, which relates the behavior of the function to its rate of change, and is typically used to model physical and natural phenomena."],
+    ["Volume", "The amount of space occupied by a three-dimensional object, and can be found by integrating the cross-sectional area of the object over a given interval along the direction of its height or depth."],
+    ["FTC", "The acronym representing the theorem that describes the relationship between differentiation and integration."]
 ]
 
 function getRandomElements(arr, count) {
