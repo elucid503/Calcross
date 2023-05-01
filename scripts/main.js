@@ -5,7 +5,7 @@ function Buttons() {
 
     document.querySelectorAll('.button').forEach(button => {
 
-    const bounding = button.getBoundingClientRect()
+    const bounding = button.getBoundingClientRect();
 
     button.addEventListener('mousemove', e => {
 
