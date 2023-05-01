@@ -185,6 +185,7 @@ body {
     cursor: pointer;
     border: var(--border);
     backdrop-filter: blur(10px);
+    --webkit-backdrop-filter: blur(10px);
     border-radius: 10px;  
     background: none;
     padding: 9px 22px 9px 16px;
